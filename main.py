@@ -110,9 +110,9 @@ def get_results_df(run_result: RunResult):
         f"param_{hp_key}" for hp_key in model_proxy.hyperparameters.keys()
     ] + [f"mean_test_{cv_score_key}" for cv_score_key in validation.CV_SCORING.keys()]
     # Again, PyCharm is dumb and thinks that cv_results_ is not a member of BaseValidator
-    return pd.DataFrame(run_result.cross_validator.cv_results_)[
+    return pd.DataFrame(run_result.cross_validator.cv_results_)[  # noqa
         important_columns
-    ]  # noqa
+    ]
 
 
 if __name__ == "__main__":
