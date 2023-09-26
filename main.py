@@ -55,7 +55,7 @@ def run(
     training_df = pd.read_csv(training_csv)
 
     # Reduce the problem to classifying the least common label, so 1 == False, 2 == True
-    target_labels = training_df.Label == 2
+    target_labels = training_df.Label == 1
     # XXX: PyCharm mistakenly thinks this returns a Bool, so can't do this all in the line above :/
     training_df.pop("Label")
 
@@ -85,7 +85,7 @@ def run(
     test_df = pd.read_csv(test_csv)
     predictions = best_estimator.predict(test_df)
     predictions_df = pd.DataFrame({"Predictions": predictions})
-    predictions_df.Predictions.replace({True: 2, False: 1}, inplace=True)
+    predictions_df.Predictions.replace({True: 1, False: 2}, inplace=True)
     predictions_df.to_csv(predictions_csv, header=False, index=False)
 
     # Return the search object for inspection purposes.

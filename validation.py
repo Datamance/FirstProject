@@ -14,7 +14,8 @@ from sklearn.pipeline import Pipeline
 CV_SCORING = {
     "precision": make_scorer(precision_score, average="weighted"),
     "recall": make_scorer(recall_score, average="weighted"),
-    "f1_score": make_scorer(f1_score, average="weighted"),
+    "weighted_f1": make_scorer(f1_score, average="weighted"),
+    "binary_f1": make_scorer(f1_score, average="binary"),
     "auc_score": make_scorer(roc_auc_score, average="weighted"),
 }
 
@@ -47,7 +48,7 @@ def get_search_cv(
         parameter_grid,
         n_jobs=-1,
         scoring=CV_SCORING,
-        refit="f1_score",
+        refit="weighted_f1",
         verbose=3,
     )
 
