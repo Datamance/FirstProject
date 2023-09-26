@@ -3,7 +3,7 @@
 TODO: Try scaling of both varieties: normalization and standardization.
 TODO: Add nicer logging
 TODO: Add plotting capabilities.
-TODO: Random number seeding for replicability
+TODO: Random number seeding for replicable results
 """
 
 import argparse
@@ -35,7 +35,7 @@ parser.add_argument(
 
 # Container for results; allows us to wrap the driver code in a function and still inspect it
 # after running things in interactive mode (i.e. with `python -i` or using PyCharm's
-# Data Inspector.
+# Data Inspector).
 class RunResult(NamedTuple):
     training_df: pd.DataFrame
     target_labels: pd.Series
