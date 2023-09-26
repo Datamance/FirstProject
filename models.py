@@ -1,4 +1,8 @@
-"""Models we want to test."""
+"""Models we want to test.
+
+The purpose of these containers is to allow flexible replacement of models
+and their corresponding CV parameters contingent on command line arguments.
+"""
 
 from typing import Dict, NamedTuple
 

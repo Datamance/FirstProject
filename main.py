@@ -33,6 +33,9 @@ parser.add_argument(
 )
 
 
+# Container for results; allows us to wrap the driver code in a function and still inspect it
+# after running things in interactive mode (i.e. with `python -i` or using PyCharm's
+# Data Inspector.
 class RunResult(NamedTuple):
     training_df: pd.DataFrame
     target_labels: pd.Series
@@ -53,7 +56,8 @@ def run(
 
     # Reduce the problem to classifying the least common label, so 1 == False, 2 == True
     target_labels = training_df.Label == 2
-    training_df.pop("Label")  # XXX: PyCharm mistakenly thinks this returns a Bool.
+    # XXX: PyCharm mistakenly thinks this returns a Bool, so can't do this all in the line above :/
+    training_df.pop("Label")
 
     # Dynamically retrieve model.
     model = models.retrieve(model_name)
