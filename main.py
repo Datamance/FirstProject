@@ -103,7 +103,7 @@ def run(
 def get_results_df(run_result: RunResult):
     """Convenience method for getting CV result DF columns we really care about."""
     model_proxy = run_result.model_proxy
-    # I put a lot of other scores in there that I don't necessarily want to throw out.
+    # CV Search objects tend to put per-run information that I don't necessarily want to throw out.
     # This is just for when other people run the code and want to see the most important
     # metrics, and their corresponding hyperparameters.
     important_columns = [
