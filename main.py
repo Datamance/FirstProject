@@ -78,6 +78,7 @@ def run(
         target_labels=target_labels,  # noqa
     )
 
+    # Reference for best estimator. Why the trailing underscore? Is this supposed to be protected?
     best_estimator = search_cv.best_estimator_
 
     # Make predictions, format them appropriately, and shove them into the output folder.
@@ -99,6 +100,22 @@ def run(
     )
 
 
+def get_results_df(run_result: RunResult):
+    """Convenience method for getting CV result DF columns we really care about."""
+    model_proxy = run_result.model_proxy
+    # I put a lot of other scores in there that I don't necessarily want to throw out.
+    # This is just for when other people run the code and want to see the most important
+    # metrics, and their corresponding hyperparameters.
+    important_columns = [
+        f"param_{hp_key}" for hp_key in model_proxy.hyperparameters.keys()
+    ] + [f"mean_test_{cv_score_key}" for cv_score_key in validation.CV_SCORING.keys()]
+    # Again, PyCharm is dumb and thinks that cv_results_ is not a member of BaseValidator
+    return pd.DataFrame(run_result.cross_validator.cv_results_)[
+        important_columns
+    ]  # noqa
+
+
 if __name__ == "__main__":
     args = parser.parse_args()
     result = run(model_name=args.model_name)
+    search_df = get_results_df(result)
