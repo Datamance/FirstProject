@@ -108,7 +108,20 @@ def get_results_df(run_result: RunResult):
     # metrics, and their corresponding hyperparameters.
     important_columns = [
         f"param_{hp_key}" for hp_key in model_proxy.hyperparameters.keys()
-    ] + [f"mean_test_{cv_score_key}" for cv_score_key in validation.CV_SCORING.keys()]
+    ]
+    if type(run_result.cross_validator) in (
+        sl.model_selection.GridSearchCV,
+        sl.model_selection.RandomizedSearchCV,
+    ):
+        important_columns += [
+            f"mean_test_{cv_score_key}" for cv_score_key in validation.CV_SCORING.keys()
+        ]
+    elif type(run_result.cross_validator) in (
+        sl.model_selection.HalvingGridSearchCV,
+        sl.model_selection.HalvingRandomSearchCV,
+    ):
+        important_columns += ["f1_weighted"]
+
     # Again, PyCharm is dumb and thinks that cv_results_ is not a member of BaseValidator
     return pd.DataFrame(run_result.cross_validator.cv_results_)[
         important_columns
