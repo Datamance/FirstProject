@@ -5,8 +5,13 @@ TODO: Try HalvingRandomSearchCV
 from typing import Dict
 
 import pandas as pd
-from sklearn.metrics import (f1_score, make_scorer, precision_score,
-                             recall_score, roc_auc_score)
+from sklearn.metrics import (
+    f1_score,
+    make_scorer,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+)
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.pipeline import Pipeline
 
